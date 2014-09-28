@@ -1,0 +1,11 @@
+# Development enviroment directories
+/.idea
+/.DS_Store
+/node_modules
+/bower_components
+
+# VM files for local machine ID
+/.vagrant/machines
+
+
+
