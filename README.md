@@ -1,4 +1,4 @@
-blank-symfony-vm
+blank-vm
 ========
 
 Install vagrant. If you have Debian based system (f.e. Ubuntu), after install run command (see below) to install nfs server.
