@@ -75,11 +75,6 @@ augeas { "php_timezone_apache2":
   ]
 }
 
-exec { "apache-reload":
-  command => "sudo service apache2 reload",
-  require => Exec['remove-default-enabled-site']
-}
-
 augeas { "xdebug":
   context => "/files/etc/php5/mods-available/xdebug.ini",
   changes => [
@@ -116,9 +111,14 @@ apache::vhost { $vhost_name:
   docroot  => $vhost_path
 }
 
-exec { "remove-default-enabled-site":
-  command => "rm /etc/apache2/sites-enabled/000-default",
+file { "/etc/apache2/sites-enabled/000-default":
+  ensure => absent,
   require => Class['apache']
+}
+
+exec { "apache-reload":
+  command => "sudo service apache2 reload",
+  require => File['/etc/apache2/sites-enabled/000-default']
 }
 
 class { 'nodejs':
@@ -147,6 +147,3 @@ package { 'capistrano':
     provider => 'gem',
     ensure => '3.1'
 }
-
-
-
